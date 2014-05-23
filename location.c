@@ -17,7 +17,7 @@ location * location_new(const char * filename, const char * name)
   l->origin.x = 0;
   l->origin.y = 0;
   l->image = sdl_utils_load_image(filename);
-  l->font = TTF_OpenFont("./resources/adventure.ttf", 28);
+  l->font = TTF_OpenFont("./resources/adventure.ttf", 14);
   SDL_Color font_color;
   font_color.r = 0;
   font_color.g = 0;
@@ -39,6 +39,9 @@ void location_destroy(location * l)
 void location_draw(location * l, point origin, SDL_Surface * background)
 {
   sdl_utils_apply_surface(origin.x, origin.y, l->image, background);
-  
+  point name_origin;
+  name_origin.x = l->origin.x + (l->image->w / 2) - (l->name->w / 2);
+  name_origin.y = l->origin.y + l->image->h;
+  sdl_utils_apply_surface(name_origin.x, name_origin.y, l->name, background); 
 }
 
