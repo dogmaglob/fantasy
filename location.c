@@ -11,11 +11,11 @@ struct _location {
   SDL_Surface * name;
 };
 
-location * location_new(const char * filename, const char * name)
+location * location_new(const char * filename, const char * name, int x, int y)
 {
   location * l = malloc(sizeof(location));
-  l->origin.x = 0;
-  l->origin.y = 0;
+  l->origin.x = x;
+  l->origin.y = y;
   l->image = sdl_utils_load_image(filename);
   l->font = TTF_OpenFont("./resources/adventure.ttf", 14);
   SDL_Color font_color;
@@ -36,9 +36,9 @@ void location_destroy(location * l)
   }
 }
 
-void location_draw(location * l, point origin, SDL_Surface * background)
+void location_draw(location * l, SDL_Surface * background)
 {
-  sdl_utils_apply_surface(origin.x, origin.y, l->image, background);
+  sdl_utils_apply_surface(l->origin.x, l->origin.y, l->image, background);
   point name_origin;
   name_origin.x = l->origin.x + (l->image->w / 2) - (l->name->w / 2);
   name_origin.y = l->origin.y + l->image->h;
