@@ -22,10 +22,6 @@ SDL_Surface * sdl_utils_load_image(const char * filename)
   if (loaded_image != NULL) {
     optimized_image = SDL_DisplayFormat(loaded_image);
     SDL_FreeSurface(loaded_image);
-    if (optimized_image != NULL) {
-      Uint32 color_key = SDL_MapRGB(optimized_image->format, 0, 255, 255);
-      SDL_SetColorKey(optimized_image, SDL_SRCCOLORKEY, color_key);
-    }
   }
   return optimized_image;
 }
