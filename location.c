@@ -9,9 +9,10 @@ struct _location {
   SDL_Surface * image;
   TTF_Font * font;
   SDL_Surface * name;
+  location_type type;
 };
 
-location * location_new(const char * filename, const char * name, int x, int y)
+location * location_new(const char * filename, const char * name, int x, int y, location_type type)
 {
   location * l = malloc(sizeof(location));
   l->origin.x = x;
@@ -23,6 +24,7 @@ location * location_new(const char * filename, const char * name, int x, int y)
   font_color.g = 0;
   font_color.b = 0;
   l->name = TTF_RenderText_Solid(l->font, name, font_color);
+  l->type = type;
   return l;
 }
 
