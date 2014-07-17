@@ -1,3 +1,4 @@
 fantasy
 *.o
 *.swp
+*.DS_Store

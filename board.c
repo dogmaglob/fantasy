@@ -3,9 +3,11 @@
 #include "SDL/SDL.h"
 #include "board.h"
 #include "location.h"
+#include "hero.h"
 #include "sdl_utils.h"
 
 #define BOARD_LOCATIONS 15
+#define BOARD_HEROES 4
 
 struct _board {
   unsigned int height;
@@ -13,8 +15,8 @@ struct _board {
   unsigned int bpp;
   SDL_Surface * background;
   Uint32 background_color;
-  location * castle;
   location * locations[BOARD_LOCATIONS];
+  hero * heroes[BOARD_HEROES];
 };
 
 static void board_draw_background(board * b)
@@ -28,6 +30,14 @@ static void board_draw_locations(board * b)
   for (i = 0; i < BOARD_LOCATIONS; i++) {
     location_draw(b->locations[i], b->background);
   }
+}
+
+static void board_draw_heroes (board * b)
+{
+    int i;
+    for (i = 0; i < BOARD_HEROES; i++) {
+        hero_draw(b->heroes[i], b->background);
+    }
 }
 
 board * board_new()
@@ -54,6 +64,10 @@ board * board_new()
   b->locations[12] = location_new("./resources/mountain-twin.png", "Vaults of Solitude", 620, 20, LOCATION_TYPE_DUNGEON);
   b->locations[13] = location_new("./resources/volcano-active.png", "Mount Diablo", 700, 450, LOCATION_TYPE_DUNGEON);
   b->locations[14] = location_new("./resources/ship.png", "Lost Armada", 350, 820, LOCATION_TYPE_DUNGEON);
+  b->heroes[0] = hero_new("./resources/cleric.png", 550, 160);
+  b->heroes[1] = hero_new("./resources/fighter.png", 50, 70);
+  b->heroes[2] = hero_new("./resources/thief.png", 770, 190);
+  b->heroes[3] = hero_new("./resources/wizard.png", 400, 50);
   return b;
 }
 
@@ -65,6 +79,9 @@ void board_destroy(board * b)
     for (i = 0; i < BOARD_LOCATIONS; i++) {
       location_destroy(b->locations[i]);
     }
+    for (i = 0; i < BOARD_HEROES; i++) {
+        hero_destroy(b->heroes[i]);
+    }
     free(b);
   }
 }
@@ -73,6 +90,7 @@ void board_draw(board * b)
 {
   board_draw_background(b);
   board_draw_locations(b);
+  board_draw_heroes(b);
   SDL_Flip(b->background);
 }
 

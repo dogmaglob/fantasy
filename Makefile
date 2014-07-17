@@ -1,7 +1,7 @@
 SDL_FLAGS = $(shell sdl-config --cflags --libs) -lSDL_image -lSDL_ttf -lSDL_mixer
 
-fantasy : sdl_utils.o location.o timer.o board.o game.o main.o 
-	gcc $(SDL_FLAGS) -o fantasy main.o game.o board.o timer.o location.o sdl_utils.o
+fantasy : sdl_utils.o hero.o location.o timer.o board.o game.o main.o 
+	gcc $(SDL_FLAGS) -o fantasy main.o game.o board.o timer.o location.o hero.o sdl_utils.o
 
 main.o : main.c game.h
 	gcc -c main.c
@@ -17,6 +17,9 @@ timer.o : timer.c timer.h
 
 location.o : location.c location.h sdl_utils.h
 	gcc -c location.c
+
+hero.o : hero.c hero.h sdl_utils.h
+	gcc -c hero.c
 
 sdl_utils.o : sdl_utils.c sdl_utils.h
 	gcc -c sdl_utils.c
