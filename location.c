@@ -2,7 +2,6 @@
 #include <string.h>
 #include "SDL/SDL_ttf.h"
 #include "location.h"
-#include "sdl_utils.h"
 
 struct _location {
   point origin;
@@ -45,5 +44,10 @@ void location_draw(location * l, SDL_Surface * background)
   name_origin.x = l->origin.x + (l->image->w / 2) - (l->name->w / 2);
   name_origin.y = l->origin.y + l->image->h;
   sdl_utils_apply_surface(name_origin.x, name_origin.y, l->name, background); 
+}
+
+point location_get_origin(location * l)
+{
+    return l->origin;
 }
 

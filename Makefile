@@ -15,11 +15,11 @@ board.o : board.c board.h location.h
 timer.o : timer.c timer.h
 	gcc -c timer.c
 
+hero.o : hero.c hero.h location.h sdl_utils.h
+	gcc -c hero.c
+
 location.o : location.c location.h sdl_utils.h
 	gcc -c location.c
-
-hero.o : hero.c hero.h sdl_utils.h
-	gcc -c hero.c
 
 sdl_utils.o : sdl_utils.c sdl_utils.h
 	gcc -c sdl_utils.c
